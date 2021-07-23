@@ -33,6 +33,11 @@ const swMovies = await friendlyFetch(API_ENDPOINT + '/films')
   .then(res => res.results.sort((m1, m2) => m1.episode_id - m2.episode_id))
   .catch(() => []);
 
+// // Preenchimento inicial
+if(swMovies && swMovies[0]){
+  setMovieDetails(preElement, swMovies[0]);
+}
+
 swMovies.forEach(movie => {
   setMovieList(movie, movieListElement, preElement);
 })

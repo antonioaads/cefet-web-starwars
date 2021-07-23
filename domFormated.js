@@ -1,22 +1,24 @@
 import { int2roman } from './roman.js'
 import { restartAnimation } from './restart-animation.js'
 
-export const setMovieDetails = (element, episode_id = 0, title = '', text = '') => {
+export const setMovieDetails = (element, movie) => {
+  const {episode_id, title, opening_crawl} = movie;
+  
   element.innerText = `
       Episode - ${int2roman(episode_id)}
       ${title.toUpperCase()}
       
-      ${text}
-  `
+      ${opening_crawl}
+  `;
+  restartAnimation(element);
 }
 
-export const setMovieList = (movie, element, preElement) => {
+export const setMovieList = (movie, ulElement, preElement) => {
   const li = document.createElement('li');
   li.innerText = `Episode ${int2roman(movie.episode_id).padEnd(3, ' ')} - ${movie.title}`;
 
   li.addEventListener('click', () => {
-      setMovieDetails(preElement, movie.episode_id, movie.title, movie.opening_crawl);
-      restartAnimation(preElement);
+      setMovieDetails(preElement, movie);
   })
-  element.appendChild(li);
+  ulElement.appendChild(li);
 }
