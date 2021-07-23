@@ -32,7 +32,7 @@ const swMovies = await friendlyFetch(API_ENDPOINT + '/films')
 
 swMovies.forEach(movie => {
   const li = document.createElement('li')
-  li.innerText = `Episode ${int2roman(movie.episode_id)} - ${movie.title}`
+  li.innerText = `Episode ${int2roman(movie.episode_id).padEnd(3, ' ')} - ${movie.title}`
   
   movieList.appendChild(li)
 })
