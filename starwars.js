@@ -28,7 +28,8 @@ import { int2roman } from './roman.js'
 const movieList = document.querySelector('#filmes ul')
 
 const swMovies = await friendlyFetch(API_ENDPOINT + '/films')
-  .then(res => res.results);
+  .then(res => res.results.sort((m1, m2) => m1.episode_id - m2.episode_id))
+  .catch(() => []);
 
 swMovies.forEach(movie => {
   const li = document.createElement('li')
