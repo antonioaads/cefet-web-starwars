@@ -6,7 +6,7 @@
 
 const API_ENDPOINT = 'https://swapi.dev/api'
 
-// Exercício 1
+// Configuração do player de áudio
 import { AudioPlayer } from "./music.js"
 //import { AudioPlayer } from "./music-sem-private.js"
 
@@ -21,19 +21,18 @@ audioPlayer.start(
   document.body
 )
 
-//Exercício 2
+// Listagem e detalhes dos filmes
 import { friendlyFetch } from './friendly-fetch.js'
-import { int2roman } from './roman.js'
+import { restartAnimation } from './restart-animation.js'
+import { setMovieDetails, setMovieList } from './domFormated.js'
 
-const movieList = document.querySelector('#filmes ul')
+const preElement = document.querySelector('pre')
+const movieListElement = document.querySelector('#filmes ul')
 
 const swMovies = await friendlyFetch(API_ENDPOINT + '/films')
   .then(res => res.results.sort((m1, m2) => m1.episode_id - m2.episode_id))
   .catch(() => []);
 
 swMovies.forEach(movie => {
-  const li = document.createElement('li')
-  li.innerText = `Episode ${int2roman(movie.episode_id).padEnd(3, ' ')} - ${movie.title}`
-  
-  movieList.appendChild(li)
+  setMovieList(movie, movieListElement, preElement);
 })
